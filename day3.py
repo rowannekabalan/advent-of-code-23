@@ -24,13 +24,13 @@ def sum_parts():
 
     for row in num_indices:
         for start, end in num_indices[row]:
-            if check_neighbours(row, start, end, matrix):
+            if check_neighbours(row, start, end):
                 part = ''.join(matrix[row][start:end])
                 sum += int(part)
     return sum
 
 
-def check_neighbours(row, col, end_col, matrix):
+def check_neighbours(row, col, end_col):
     valid_neighbours = False
     single_digit = (
         (-1, -1), (-1, 0), (-1, 1),
@@ -60,7 +60,7 @@ def check_neighbours(row, col, end_col, matrix):
 def find_gear_ratios():
     potential_gears = []
     count, sum = 0, 0
-    
+
     for row in matrix:
         indices = ([i for i, x in enumerate(row) if x == "*"])
         if len(indices) != 0:
@@ -68,13 +68,13 @@ def find_gear_ratios():
                 potential_gears.append((count, index))
         count += 1
     for x, y in potential_gears:
-        gear_neighbours = find_gear_neighbours(x, y, matrix)
+        gear_neighbours = find_gear_neighbours(x, y)
         if gear_neighbours:
             sum = sum + gear_parts_ratio(gear_neighbours)
     return sum
 
 
-def find_gear_neighbours(row, col, matrix):
+def find_gear_neighbours(row, col):
     neighbour_nums = []
     neighbours = (
         (-1, -1), (-1, 0), (-1, 1),
