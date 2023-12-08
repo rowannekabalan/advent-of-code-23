@@ -21,7 +21,6 @@ def parse_input():
 
 def process_seed_range(seed_range):
     for mapping in mappings:
-        print(f"Seeds: {seed_range}")
         seed_range = map_seed_range(seed_range, mapping)
     return seed_range
 
