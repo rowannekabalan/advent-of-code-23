@@ -6,7 +6,7 @@ directions = 'LLR'  # copy over from input
 
 def build_tree():
     global tree
-    with open("input.txt") as file:
+    with open("test.txt") as file:
         for line in file:
             split1 = line.split("=")
             val = split1[0].strip()
@@ -14,8 +14,22 @@ def build_tree():
             l = ''.join(filter(str.isalnum, split2[0]))
             r = ''.join(filter(str.isalnum, split2[1]))
             tree[val] = {}
-            tree[val]['l'] = {'val': l, 'path': 0}
-            tree[val]['r'] = {'val': r, 'path': 0}
+            tree[val]['l'] = l
+            tree[val]['r'] = r
+
+
+def build_tree():
+    global tree
+    with open("test.txt") as file:
+        for line in file:
+            split1 = line.split("=")
+            val = split1[0].strip()
+            split2 = split1[1].split(",")
+            l = ''.join(filter(str.isalnum, split2[0]))
+            r = ''.join(filter(str.isalnum, split2[1]))
+            tree[val] = {}
+            tree[val]['l'] = l
+            tree[val]['r'] = r
 
 
 def direction(step_no):
@@ -26,8 +40,8 @@ def direction(step_no):
 
 def next_step(node, d):
     if d == 'L':
-        return tree[node]['l']['val']
-    return tree[node]['r']['val']
+        return tree[node]['l']
+    return tree[node]['r']
 
 
 def find_steps_part1(current_node='AAA'):
@@ -40,13 +54,10 @@ def find_steps_part1(current_node='AAA'):
 
 def find_steps_part2(node, d):
     step = 0
-    start_d = str.lower(d)
 
     while not node.endswith('Z'):
         step += 1
         node = next_step(node, direction(step))
-
-    tree[node][start_d]['path'] = step
     return step
 
 
@@ -63,4 +74,3 @@ def find_all_steps():
     for node in current_nodes:
         node_path_lengths.append(find_steps_part2(node, directions[0]))
     return lcm(node_path_lengths)
-
