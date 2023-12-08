@@ -1,4 +1,3 @@
-import time
 from math import gcd
 
 tree = dict()
