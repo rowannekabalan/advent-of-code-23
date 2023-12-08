@@ -46,7 +46,7 @@ def map_seed_range(range, mapping):
     return mapped.union(unmapped)
 
 
-def range_map_and_partition(start, end, rule):  # range in and list of ranges out
+def range_map_and_partition(start, end, rule):  
     rule_start = int(rule.split()[1])
     rule_end = rule_start + int(rule.split()[2]) - 1
     mapped = set()
