@@ -18,20 +18,6 @@ def build_tree():
             tree[val]['r'] = r
 
 
-def build_tree():
-    global tree
-    with open("test.txt") as file:
-        for line in file:
-            split1 = line.split("=")
-            val = split1[0].strip()
-            split2 = split1[1].split(",")
-            l = ''.join(filter(str.isalnum, split2[0]))
-            r = ''.join(filter(str.isalnum, split2[1]))
-            tree[val] = {}
-            tree[val]['l'] = l
-            tree[val]['r'] = r
-
-
 def direction(step_no):
     if step_no <= len(directions):
         return directions[step_no - 1]
