@@ -81,9 +81,7 @@ def find_lowest_location():
     s = set()
     for seed_range in seed_ranges:
         s.add(seed_range)
-        print(f'Find locations for {s}')
         locations = process_seed_range(s)
-        print(locations)
         all_locations.extend(locations)
     return min(all_locations)[0]
 
