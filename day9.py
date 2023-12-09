@@ -50,9 +50,3 @@ def find_previous_sum():
     for seq in input:
         sum += find_previous(seq)
     return sum
-
-
-parse_input()
-print(input)
-
-print(find__previous_sum())
