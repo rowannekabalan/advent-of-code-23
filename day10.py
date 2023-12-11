@@ -111,6 +111,59 @@ def find_loop_iterative():
 
     return longest_loop
 
-
 def get_steps():
     return len(find_loop_iterative()) / 2
+
+# ******** Part 2 ********
+
+def gap_in_loop(gap, row, cols):
+    row = maze[row]
+    crossed_east = 0
+    crossed_west = 0
+
+    def is_wall(v):
+        return v != "." and valid_move(v, 'S')
+
+    for i, v in enumerate(row):
+        if i <= gap[0] and i in cols and is_wall(v):
+            crossed_east += 1
+        elif i >= gap[-1] and i in cols and is_wall(v):
+            crossed_west += 1
+    return crossed_west % 2 == 1 or crossed_east % 2 == 1
+
+
+def process_row(row, cols):
+    row_tiles = 0
+    i = 0
+    cols = list(cols)
+
+    while i in range(0, len(cols) - 1):
+        this_node = cols[i]
+        next_node = cols[i + 1]
+        if next_node - this_node == 1:
+            i += 1
+            continue
+        gap = cols[i: i + 2]
+
+        if gap_in_loop(gap, row, cols):
+            row_tiles += cols[i + 1] - cols[i] - 1
+        i = i + 2
+    return row_tiles
+
+
+def count_tiles(loop):
+    loop_nodes = defaultdict(list)
+    tiles = 0
+
+    for row, col in loop:
+        loop_nodes[row].append(col)
+
+    for row, cols in sorted(loop_nodes.items()):
+        cols = sorted(cols)
+
+        if cols[-1] - cols[0] == len(cols) - 1:
+            continue
+
+        tiles = tiles + process_row(row, cols)
+
+    return tiles
