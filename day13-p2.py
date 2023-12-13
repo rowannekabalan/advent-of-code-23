@@ -1,3 +1,5 @@
+all_notes = dict()
+
 def parse_input():
     with open('input.txt', 'r') as file:
         data = file.read()
