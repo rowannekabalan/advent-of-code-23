@@ -57,7 +57,7 @@ def dead_end(x, y, direction):
 def navigate(beam_x=0, beam_y=0, direction='E', visited=None):
     global energised, neighbours
 
-    if beam_x not in range(len(contraption)) or beam_y not in range(len(contraption[0])):
+    if beam_x not in range(rows) or beam_y not in range(cols):
         return 0
 
     if visited is None:
