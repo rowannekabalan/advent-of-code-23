@@ -1,6 +1,5 @@
 import sys
 
-contraption = []
 energised = set()
 neighbours = {'N': (-1, 0), 'S': (1, 0), 'W': (0, -1), 'E': (0, 1)}
 max_energised = 0
@@ -8,19 +7,15 @@ max_energised = 0
 
 def parse_input():
     with open("input.txt") as file:
-        lines = [line.rstrip() for line in file]
-        for line in lines:
-            contraption.append(list(line))
-        return contraption
+        return [list(line.rstrip()) for line in file]
 
 
-parse_input()
+contraption = parse_input()
 rows = len(contraption)
 cols = len(contraption[0])
 
 
 # /******* Part 1 *******
-
 def next_move(current, direction):
     if current == "." or (current == "|" and direction in ['N', 'S']) or (current == "-" and direction in ['W', 'E']):
         return direction
@@ -57,31 +52,30 @@ def dead_end(x, y, direction):
 def navigate(beam_x=0, beam_y=0, direction='E', visited=None):
     global energised, neighbours
 
-    if beam_x not in range(rows) or beam_y not in range(cols):
-        return 0
-
     if visited is None:
         visited = {}
 
-    energised.add((beam_x, beam_y))
-
-    if (beam_x, beam_y, direction) in visited:
+    if not (0 <= beam_x < rows) or not (0 <= beam_y < cols) or (beam_x, beam_y, direction) in visited:
         return 0
+
+    energised.add((beam_x, beam_y))
 
     visited[(beam_x, beam_y, direction)] = True
 
-    new_d = next_move(contraption[beam_x][beam_y], direction)
+    d = next_move(contraption[beam_x][beam_y], direction)
 
-    if dead_end(beam_x, beam_y, new_d):
+    if dead_end(beam_x, beam_y, d):
         return 0
 
-    if len(new_d) == 1:
-        beam_x += neighbours[new_d[0]][0]
-        beam_y += neighbours[new_d[0]][1]
-        return 1 + navigate(beam_x, beam_y, new_d[0], visited)
+    new_x = beam_x + neighbours[d[0]][0]
+    new_y = beam_y + neighbours[d[0]][1]
+
+    if len(d) == 1:
+        return 1 + navigate(new_x, new_y, d[0], visited)
     else:
-        return 1 + navigate(beam_x + neighbours[new_d[0]][0], beam_y + neighbours[new_d[0]][1], new_d[0], visited) + \
-            navigate(beam_x + neighbours[new_d[1]][0], beam_y + neighbours[new_d[1]][1], new_d[1], visited)
+        new_x2 = beam_x + neighbours[d[1]][0]
+        new_y2 = beam_y + neighbours[d[1]][1]
+        return 1 + navigate(new_x, new_y, d[0], visited) + navigate(new_x2, new_y2, d[1], visited)
 
 
 def tiles_energised(x=0, y=0, d='E'):
