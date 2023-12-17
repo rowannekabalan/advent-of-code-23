@@ -1,9 +1,8 @@
 import sys
 
 energised = set()
-neighbours = {'N': (-1, 0), 'S': (1, 0), 'W': (0, -1), 'E': (0, 1)}
 max_energised = 0
-
+neighbours = {'N': (-1, 0), 'S': (1, 0), 'W': (0, -1), 'E': (0, 1)}
 
 def parse_input():
     with open("input.txt") as file:
