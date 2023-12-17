@@ -16,6 +16,7 @@ cols = len(contraption[0])
 
 
 # /******* Part 1 *******
+
 def next_move(current, direction):
     if current == "." or (current == "|" and direction in ['N', 'S']) or (current == "-" and direction in ['W', 'E']):
         return direction
