@@ -32,7 +32,7 @@ def interior_points(area, boundary_count):  # pick's theorem
     return area - boundary_count / 2 + 1
 
 
-def count_trenches(boundaries, plan):  # combines above formulas to count interior points in the polygon
+def count_trenches(boundaries, plan):  # combines above formulas to count all points in the polygon
     boundary_count = sum([line[1] for line in plan])
     area = polygon_area(boundaries)
     return int(interior_points(area, boundary_count) + boundary_count)
