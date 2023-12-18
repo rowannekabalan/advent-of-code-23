@@ -1,9 +1,9 @@
+# /******** Part1 *******
+
 def parse_input():
     with open("input.txt") as file:
         return [(line.split()[0], int(line.split()[1])) for line in file]
 
-
-# /******** Part1 *******
 
 def dig(plan):
     start_x, start_y = 0, 0
