@@ -51,7 +51,6 @@ def parse_part_2():
 
     with open("input.txt") as file:
         plan = [(directions[int(line.split()[2][-2])], int(line.split()[2][2:-2], 16)) for line in file]
-
     return plan
 
 def calculate_part_2():
